@@ -23,13 +23,6 @@ public class Thrower : MonoBehaviour
     Vector3 endPoint;
     Vector3 throwDirection;
     Quaternion aimDirection;
-    bool isAiming = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -37,6 +30,7 @@ public class Thrower : MonoBehaviour
         DragThrowPie();
        if (target.isGameOver)
         {
+            HideAimAssist();
             Destroy(gameObject);
         }
     }
@@ -67,7 +61,6 @@ public class Thrower : MonoBehaviour
 
             startPoint = cam.ScreenToWorldPoint(mousePosition);
             startPoint.z = 15;
-            isAiming = true;
         }
         if (Input.GetMouseButton(0))
         {
@@ -82,7 +75,6 @@ public class Thrower : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Throw(aimDirection);
-            isAiming = false;
             aimDirection = Quaternion.identity;
             HideAimAssist();
         }
