@@ -37,13 +37,21 @@ public class Target : MonoBehaviour
     [Header("Settings")]
     public HitType expectedHitType = HitType.Head;
     public TMPro.TextMeshProUGUI scoreText;
+    public int scoreMultiplierStep = 3;
 
     [Header("Player")]
-    public int lives = 5;
+    public int startLives = 5;
+    public int restoreLifeComboLength = 5;
 
+    int lives;
     public bool isGameOver = false;
     int score = 0;
+    int hitCounter = 0;
 
+    void Start()
+    {
+        RestartGame();
+    }
 
     // Update is called once per frame
     void Update()
@@ -60,25 +68,36 @@ public class Target : MonoBehaviour
             xSpeed = xRotationSpeed * (extraXRotationPercentage * (score - xRotationStart) / xRotationSpeedStep);
         }
         transform.Rotate(new Vector3(xSpeed, ySpeed, zSpeed) * Time.deltaTime);
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            RestartGame();
+        }
     }
 
     public void OnHit(HitType hitType)
     {
-        if (hitType == HitType.Wheel)
-        {
-            score -= 1;
-        }
+        
         if (hitType == expectedHitType)
         {
-            score += 1;
+            hitCounter += 1;
+            Debug.Log(hitCounter);
+            score += (int) Mathf.Pow(2,(int)(hitCounter / scoreMultiplierStep));
             SelectNewTarget();
+            RestoreHealth();
         } else
         {
             lives -= 1;
-            Debug.Log(lives);
+            hitCounter = 0;
+        }
+        if (hitType == HitType.Wheel)
+        {
+            score -= 1;
+
         }
         scoreText.text = "SCORE: " + score.ToString();
         scoreText.text += "\nLIVES: " + lives;
+        scoreText.text += "\nCOMBO: " + hitCounter;
+        scoreText.text += "\nMULTIPLIER: " + Mathf.Pow(2, hitCounter / scoreMultiplierStep);
         if (lives <= 0)
         {
             GameOver();
@@ -86,7 +105,7 @@ public class Target : MonoBehaviour
     }
 
     void GameOver() {
-        scoreText.text = "GAME OVER\nSCORE: " + score.ToString();
+        scoreText.text = "GAME OVER\nSCORE: " + score.ToString() + "\n Press R to restart.";
         isGameOver = true;
     }
 
@@ -106,5 +125,19 @@ public class Target : MonoBehaviour
         expectedHitType = (HitType)newType;
     }
 
-    
+    void RestoreHealth()
+    {
+        if (hitCounter % 5 == restoreLifeComboLength)
+        {
+            lives += 1;
+        }
+    }
+
+    void RestartGame()
+    {
+        scoreText.text = "CLOWN AIM\n\nHold MB1 and drag to aim;\nrelease to shoot.\nHit the *RED* body part!";
+        score = 0;
+        lives = startLives;
+        isGameOver = false;
+    }
 }

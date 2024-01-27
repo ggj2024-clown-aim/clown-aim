@@ -18,7 +18,6 @@ public class Thrower : MonoBehaviour
     public float throwForce;
     public float forwardThrowForce = 10f;
 
-    GameObject lastInstance;
     Vector3 startPoint;
     Vector3 endPoint;
     Vector3 throwDirection;
@@ -27,12 +26,19 @@ public class Thrower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DragThrowPie();
-       if (target.isGameOver)
+        if (target.isGameOver)
         {
             HideAimAssist();
-            Destroy(gameObject);
+            transform.localScale = Vector3.zero;
+            return;
         }
+        if (transform.localScale == Vector3.zero)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+       
+        DragThrowPie();
+
     }
 
     /// <summary>
@@ -40,10 +46,6 @@ public class Thrower : MonoBehaviour
     /// </summary>
     private void Throw(Quaternion aimDirection)
     {
-        if (lastInstance)
-        {
-            Destroy(lastInstance);
-        }
         GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);
         
         Vector3 force = aimDirection * throwStartPoint.forward * throwForce;

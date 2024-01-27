@@ -1502,7 +1502,8 @@ MonoBehaviour:
   extraXRotationPercentage: 0.25
   expectedHitType: 1
   scoreText: {fileID: 938350981}
-  lives: 10
+  scoreMultiplierStep: 3
+  lives: 5
   isGameOver: 0
 --- !u!4 &1179366878
 Transform:
