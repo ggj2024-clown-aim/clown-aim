@@ -17,10 +17,24 @@ public class Target : MonoBehaviour
         RightHand
     }
 
-    [Header("Settings")]
-    public float zRotationSpeed = 10f;
+    [Header("Level 0: Z Rotation")]
+    public float zRotationSpeed = 20f;
     public int zRotationSpeedStep = 1;
-    public float extraZRotationPercentage = 0.25f;
+    public float extraZRotationPercentage = 0.15f;
+
+    [Header("Level 1: Y Rotation")]
+    public int yRotationStart = 10;
+    public int yRotationSpeedStep = 1;
+    public float yRotationSpeed = 15f;
+    public float extraYRotationPercentage = 0.15f;
+
+    [Header("Level 2: X Rotation")]
+    public int xRotationStart = 20;
+    public int xRotationSpeedStep = 1;
+    public float xRotationSpeed = 15f;
+    public float extraXRotationPercentage = 0.15f;
+
+    [Header("Settings")]
     public HitType expectedHitType = HitType.Head;
     public TMPro.TextMeshProUGUI scoreText;
 
@@ -36,7 +50,17 @@ public class Target : MonoBehaviour
     void Update()
     {
         float zSpeed = zRotationSpeed * (1 + extraZRotationPercentage * score / zRotationSpeedStep);
-        transform.Rotate(new Vector3(0, 0, zSpeed) * Time.deltaTime);
+        float ySpeed = 0f;
+        float xSpeed = 0f;
+        if (score >= yRotationStart)
+        {
+            ySpeed = yRotationSpeed * (extraYRotationPercentage * (score - yRotationStart) / yRotationSpeedStep);
+        }
+        if (score >= xRotationStart)
+        {
+            xSpeed = xRotationSpeed * (extraXRotationPercentage * (score - xRotationStart) / xRotationSpeedStep);
+        }
+        transform.Rotate(new Vector3(xSpeed, ySpeed, zSpeed) * Time.deltaTime);
     }
 
     public void OnHit(HitType hitType)

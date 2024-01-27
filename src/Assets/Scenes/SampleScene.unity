@@ -1336,6 +1336,14 @@ MonoBehaviour:
   zRotationSpeed: 20
   zRotationSpeedStep: 1
   extraZRotationPercentage: 0.15
+  yRotationStart: 10
+  yRotationSpeedStep: 1
+  yRotationSpeed: 20
+  extraYRotationPercentage: 0.15
+  xRotationStart: 1
+  xRotationSpeedStep: 1
+  xRotationSpeed: 50
+  extraXRotationPercentage: 0.15
   expectedHitType: 1
   scoreText: {fileID: 938350981}
 --- !u!4 &1179366878
