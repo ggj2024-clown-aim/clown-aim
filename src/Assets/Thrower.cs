@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Thrower : MonoBehaviour
 {
+   
 
     [Header("References")]
     public GameObject projectile;
     public Transform throwStartPoint;
     public Camera cam;
     public Transform aimLine;
+    public Target target;
 
     [Header("Throwing")]
     public float throwForce;
@@ -33,7 +35,10 @@ public class Thrower : MonoBehaviour
     void Update()
     {
         DragThrowPie();
-       
+       if (target.isGameOver)
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>

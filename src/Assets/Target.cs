@@ -38,11 +38,15 @@ public class Target : MonoBehaviour
     public HitType expectedHitType = HitType.Head;
     public TMPro.TextMeshProUGUI scoreText;
 
+    [Header("Player")]
+    public int lives = 5;
+
+    public bool isGameOver = false;
     int score = 0;
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         scoreText.text = score.ToString();
     }
 
@@ -73,8 +77,22 @@ public class Target : MonoBehaviour
         {
             score += 1;
             SelectNewTarget();
+        } else
+        {
+            lives -= 1;
+            Debug.Log(lives);
         }
-        scoreText.text = score.ToString();
+        scoreText.text = "SCORE: " + score.ToString();
+        scoreText.text += "\nLIVES: " + lives;
+        if (lives <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    void GameOver() {
+        scoreText.text = "GAME OVER\nSCORE: " + score.ToString();
+        isGameOver = true;
     }
 
     public HitType CurrentTarget()
