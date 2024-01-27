@@ -10,6 +10,7 @@ public class Thrower : MonoBehaviour
     public GameObject projectile;
     public Transform throwStartPoint;
     public Camera cam;
+    public Transform aimLine;
 
     [Header("Throwing")]
     public float throwForce;
@@ -19,6 +20,8 @@ public class Thrower : MonoBehaviour
     Vector3 startPoint;
     Vector3 endPoint;
     Vector3 throwDirection;
+    Quaternion aimDirection;
+    bool isAiming = false;
 
     // Start is called before the first frame update
     void Start()
@@ -59,18 +62,35 @@ public class Thrower : MonoBehaviour
 
             startPoint = cam.ScreenToWorldPoint(mousePosition);
             startPoint.z = 15;
-
+            isAiming = true;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButton(0))
         {
             endPoint = cam.ScreenToWorldPoint(mousePosition);
             endPoint.z = 15;
-            throwDirection = startPoint- endPoint;
+            throwDirection = startPoint - endPoint;
             throwDirection.z = forwardThrowForce;
             throwDirection = throwDirection.normalized;
-            Quaternion aimDirection = Quaternion.FromToRotation(transform.forward, throwDirection);
+            aimDirection = Quaternion.FromToRotation(transform.forward, throwDirection);
+            DrawAimAssist();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
             Throw(aimDirection);
+            isAiming = false;
+            aimDirection = Quaternion.identity;
+            HideAimAssist();
         }
 
+    }
+
+    void DrawAimAssist()
+    {
+        aimLine.SetPositionAndRotation(throwStartPoint.position, aimDirection);
+    }
+
+    void HideAimAssist()
+    {
+        aimLine.position = new Vector3(1000, 1000, 1000);
     }
 }
