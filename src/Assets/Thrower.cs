@@ -59,19 +59,15 @@ public class Thrower : MonoBehaviour
 
             startPoint = cam.ScreenToWorldPoint(mousePosition);
             startPoint.z = 15;
-            Debug.Log("start: " + startPoint);
-
 
         }
         if (Input.GetMouseButtonUp(0))
         {
             endPoint = cam.ScreenToWorldPoint(mousePosition);
             endPoint.z = 15;
-            Debug.Log("end: "+ endPoint);
             throwDirection = startPoint- endPoint;
             throwDirection.z = forwardThrowForce;
             throwDirection = throwDirection.normalized;
-            Debug.Log(throwDirection);
             Quaternion aimDirection = Quaternion.FromToRotation(transform.forward, throwDirection);
             Throw(aimDirection);
         }
