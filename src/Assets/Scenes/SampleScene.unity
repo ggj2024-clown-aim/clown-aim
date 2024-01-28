@@ -701,7 +701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 178b06c87a2bd4b49ae428c770ef3cd6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -767,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c73b0a4d36f294dab8cfeec3eb6b076f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1041,7 +1041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 720}
+  m_AnchoredPosition: {x: 0, y: 900}
   m_SizeDelta: {x: 1500, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &938350981
@@ -1076,22 +1076,22 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bd0ae30645ad045e48f067f69d4deb6f, type: 2}
+  m_sharedMaterial: {fileID: -8328896420513898010, guid: bd0ae30645ad045e48f067f69d4deb6f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4293519857
+  m_fontColor: {r: 0.9433962, g: 0.91224635, b: 0.91224635, a: 1}
   m_enableVertexGradient: 1
-  m_colorMode: 3
+  m_colorMode: 0
   m_fontColorGradient:
-    topLeft: {r: 0.6603774, g: 0.18378428, b: 0.18378428, a: 1}
-    topRight: {r: 0.69803923, g: 0.23921567, b: 0.3215017, a: 1}
-    bottomLeft: {r: 0.06074228, g: 0.60984695, b: 0.990566, a: 1}
-    bottomRight: {r: 0.69470406, g: 1, b: 0, a: 1}
+    topLeft: {r: 0.8924439, g: 0.990566, b: 0.96056175, a: 1}
+    topRight: {r: 0.8924439, g: 0.990566, b: 0.96056175, a: 1}
+    bottomLeft: {r: 0.8924439, g: 0.990566, b: 0.96056175, a: 1}
+    bottomRight: {r: 0.8924439, g: 0.990566, b: 0.96056175, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 80
   m_fontSizeMax: 100
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1282,7 +1282,16 @@ MonoBehaviour:
   defaultRotation: {x: 0, y: 0, z: 0, w: 1}
   particlesHit: {fileID: 1238281880549544215}
   gaspAudio: {fileID: 8300000, guid: e92de17859f5f476fb031e61a70e7608, type: 3}
-  laughAudio: {fileID: 8300000, guid: e65b43cfc795a4de486d9489524cbcc2, type: 3}
+  laughAudios:
+  - {fileID: 8300000, guid: 16f351b824bf84d52956c08b1019177b, type: 3}
+  - {fileID: 8300000, guid: 6e3e515b29afa48edb8000b9df1fda6f, type: 3}
+  - {fileID: 8300000, guid: e65b43cfc795a4de486d9489524cbcc2, type: 3}
+  - {fileID: 8300000, guid: ad3324411aa6143a98fec4276ead9b8f, type: 3}
+  - {fileID: 8300000, guid: 4f789ec873d8d4a02bd5a0eafe3899b1, type: 3}
+  - {fileID: 8300000, guid: 3ec88171526d14e6aa7e28afa54eb262, type: 3}
+  - {fileID: 8300000, guid: 9e03b9da6c1c1483a946394498f162df, type: 3}
+  - {fileID: 8300000, guid: 3ec88171526d14e6aa7e28afa54eb262, type: 3}
+  - {fileID: 8300000, guid: 4f789ec873d8d4a02bd5a0eafe3899b1, type: 3}
   booAudio: {fileID: 8300000, guid: c2d4ea162683443f2bd66ca9f8415ec2, type: 3}
   heart: {fileID: 4735660}
   zRotationSpeed: 20
@@ -1626,7 +1635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 05f2ef7fbe1064df1bded5e6904554c9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1800,7 +1809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c17cdacd663fc4602aa81a1dba502488, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1866,7 +1875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7ef27d7ad8f44f0cbf0d1364e957ebd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9655,7 +9664,7 @@ Transform:
   m_GameObject: {fileID: 9048920013370299895}
   serializedVersion: 2
   m_LocalRotation: {x: -0.57296205, y: -0.41438448, z: -0.41438448, w: 0.57296205}
-  m_LocalPosition: {x: 3.92, y: 0.65, z: 9.04}
+  m_LocalPosition: {x: 4.07, y: 0.65, z: 7.52}
   m_LocalScale: {x: 65, y: 65, z: 65}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -9987,7 +9996,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 86617e4d3badb4456bd4e08f824139bd, type: 3}
   m_Resource: {fileID: 8300000, guid: 86617e4d3badb4456bd4e08f824139bd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
