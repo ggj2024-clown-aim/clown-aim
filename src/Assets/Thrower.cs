@@ -14,6 +14,8 @@ public class Thrower : MonoBehaviour
     public Transform aimLine;
     public Target target;
     public Animator animator;
+    public Transform pie;
+    public Animator pieAnimator;
 
     [Header("Throwing")]
     public float throwForce;
@@ -50,17 +52,22 @@ public class Thrower : MonoBehaviour
     private void Throw()
     {
         canThrow = false;
+        pie.transform.localScale = Vector3.zero;
+        pieAnimator.SetTrigger("Spawn");
+
         GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);    
         Vector3 force = aimDirection * throwStartPoint.forward * throwForce;
         Rigidbody cakeRb = cake.GetComponent<Rigidbody>();
         cakeRb.AddForce(force, ForceMode.Impulse);
         animator.SetTrigger("Throw");
+
         StartCoroutine(ThrowCooldown());
+        
     }
 
     IEnumerator ThrowCooldown()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         canThrow = true;
     }
 
@@ -106,4 +113,5 @@ public class Thrower : MonoBehaviour
     {
         aimLine.position = new Vector3(1000, 1000, 1000);
     }
+
 }
