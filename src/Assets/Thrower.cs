@@ -13,6 +13,7 @@ public class Thrower : MonoBehaviour
     public Camera cam;
     public Transform aimLine;
     public Target target;
+    public Animator animator;
 
     [Header("Throwing")]
     public float throwForce;
@@ -22,7 +23,9 @@ public class Thrower : MonoBehaviour
     Vector3 endPoint;
     Vector3 throwDirection;
     Quaternion aimDirection;
+    bool canThrow = true;
 
+   
     // Update is called once per frame
     void Update()
     {
@@ -44,14 +47,21 @@ public class Thrower : MonoBehaviour
     /// <summary>
     /// Spawns and throws a new cake with a horizontal and vertical force.
     /// </summary>
-    private void Throw(Quaternion aimDirection)
+    private void Throw()
     {
-        GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);
-        
+        canThrow = false;
+        GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);    
         Vector3 force = aimDirection * throwStartPoint.forward * throwForce;
         Rigidbody cakeRb = cake.GetComponent<Rigidbody>();
         cakeRb.AddForce(force, ForceMode.Impulse);
-        //lastInstance = cake;
+        animator.SetTrigger("Throw");
+        StartCoroutine(ThrowCooldown());
+    }
+
+    IEnumerator ThrowCooldown()
+    {
+        yield return new WaitForSeconds(1);
+        canThrow = true;
     }
 
     void DragThrowPie()
@@ -72,11 +82,15 @@ public class Thrower : MonoBehaviour
             throwDirection.z = forwardThrowForce;
             throwDirection = throwDirection.normalized;
             aimDirection = Quaternion.FromToRotation(transform.forward, throwDirection);
-            DrawAimAssist();
         }
+        if (!canThrow)
+        {
+            return;
+        }
+        DrawAimAssist();
         if (Input.GetMouseButtonUp(0))
         {
-            Throw(aimDirection);
+            Throw();
             aimDirection = Quaternion.identity;
             HideAimAssist();
         }
