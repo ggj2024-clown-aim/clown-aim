@@ -52,8 +52,7 @@ public class Thrower : MonoBehaviour
     private void Throw()
     {
         canThrow = false;
-        pie.transform.localScale = Vector3.zero;
-        pieAnimator.SetTrigger("Spawn");
+        pieAnimator.SetBool("Hidden", true);
 
         GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);    
         Vector3 force = aimDirection * throwStartPoint.forward * throwForce;
@@ -68,6 +67,7 @@ public class Thrower : MonoBehaviour
     IEnumerator ThrowCooldown()
     {
         yield return new WaitForSeconds(1f);
+        pieAnimator.SetBool("Hidden", false);
         canThrow = true;
     }
 
