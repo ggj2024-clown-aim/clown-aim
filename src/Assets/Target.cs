@@ -38,6 +38,8 @@ public class Target : MonoBehaviour
     public HitType expectedHitType = HitType.Head;
     public TMPro.TextMeshProUGUI scoreText;
     public int scoreMultiplierStep = 3;
+    public Vector3 defaultPosition = new Vector3(0,5,10.8000002f);
+    public Quaternion defaultRotation = Quaternion.identity;
 
     [Header("Player")]
     public int startLives = 5;
@@ -45,8 +47,10 @@ public class Target : MonoBehaviour
 
     int lives;
     public bool isGameOver = false;
-    int score = 0;
+    public int score = 0;
     int hitCounter = 0;
+
+    
 
     void Start()
     {
@@ -127,7 +131,7 @@ public class Target : MonoBehaviour
 
     void RestoreHealth()
     {
-        if (hitCounter % 5 == restoreLifeComboLength)
+        if (hitCounter % restoreLifeComboLength == 0)
         {
             lives += 1;
         }
@@ -139,5 +143,6 @@ public class Target : MonoBehaviour
         score = 0;
         lives = startLives;
         isGameOver = false;
+        transform.SetPositionAndRotation(defaultPosition, defaultRotation);
     }
 }

@@ -14,12 +14,10 @@ public class CakeCollider : MonoBehaviour
         
         if (target.CurrentTarget() == hitType)
         {
-            // set color to red
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            HighlightOn();
         } else
         {
-            // set color to white
-            GetComponent<MeshRenderer>().material.color = Color.white;
+            HighlightOff();
         }
     }
 
@@ -32,4 +30,12 @@ public class CakeCollider : MonoBehaviour
         }
     }
 
+    private void HighlightOn() {
+        // set color to red
+        GetComponent<MeshRenderer>().material.color = Color.red;
+    }
+    private void HighlightOff() {
+        // reset color
+        GetComponent<MeshRenderer>().material.color = Color.white;
+    }
 }
