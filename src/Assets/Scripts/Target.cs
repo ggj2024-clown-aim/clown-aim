@@ -21,11 +21,11 @@ public class Target : MonoBehaviour
     public HitType expectedHitType = HitType.Head;
     public TMPro.TextMeshProUGUI scoreText;
     public int scoreMultiplierStep = 3;
-    public Vector3 defaultPosition = new Vector3(0, 5, 10.8000002f);
+    public Vector3 defaultPosition = new(0, 5, 10.8000002f);
     public Quaternion defaultRotation = Quaternion.identity;
     public GameObject particlesHit;
     public AudioClip gaspAudio;
-    public AudioClip laughAudio;
+    public AudioClip[] laughAudios;
     public AudioClip booAudio;
     public Heart heart;
 
@@ -89,11 +89,12 @@ public class Target : MonoBehaviour
     void PlayLaugh()
     {
         audioSource.pitch = 1;
-        audioSource.PlayOneShot(laughAudio);
+        int clipId = Random.Range(0, laughAudios.Length);
+        audioSource.PlayOneShot(laughAudios[clipId]); 
     }
 
     void PlayGasp() {
-        audioSource.pitch = Random.Range(0.5f, 1.5f);
+        audioSource.pitch = Random.Range(0.6f, 1.5f);
         audioSource.PlayOneShot(gaspAudio);
     }
 
@@ -146,7 +147,7 @@ public class Target : MonoBehaviour
 
     void GameOver() {
         PlayBoo();
-        scoreText.text = "GAME OVER\nSCORE: " + score.ToString() + "\n Press R to restart.";
+        scoreText.text = "GAME OVER\nSCORE: " + score.ToString() + "\n Press R to restart";
         isGameOver = true;
     }
 
@@ -176,7 +177,7 @@ public class Target : MonoBehaviour
 
     void RestartGame()
     {
-        scoreText.text = "CLOWN AIM\n\nHold MB1 and drag to aim;\nrelease to shoot.\nHit the *RED* body part!";
+        scoreText.text = "Clown ROULETTE\n\nUse MB1 to aim.\nHit the HIGHLIGHTED body part!";
         score = 0;
         lives = startLives;
         isGameOver = false;

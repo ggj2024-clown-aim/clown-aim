@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using static Target;
-using static UnityEngine.GraphicsBuffer;
-
-
-
 
 public class MusicPlayer : MonoBehaviour
 {
@@ -20,9 +14,9 @@ public class MusicPlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Pie"))
         {
             collision.gameObject.tag = "InactivePie";
+
             if (audioSource.isPlaying)
             {
-
                 audioSource.Pause();
             }
             else
