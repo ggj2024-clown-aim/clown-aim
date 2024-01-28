@@ -25,7 +25,7 @@ public class CakeCollider : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Pie"))
         {
-            target.OnHit(hitType);
+            target.OnHit(hitType, collision.contacts[0]);
             collision.gameObject.tag = "InactivePie";
         }
     }

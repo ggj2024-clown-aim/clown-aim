@@ -57,6 +57,8 @@ public class Thrower : MonoBehaviour
         GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);    
         Vector3 force = aimDirection * throwStartPoint.forward * throwForce;
         Rigidbody cakeRb = cake.GetComponent<Rigidbody>();
+        Transform cakeTransform = cake.GetComponent<Transform>();
+        cakeTransform.rotation = aimDirection;
         cakeRb.AddForce(force, ForceMode.Impulse);
         animator.SetTrigger("Throw");
 

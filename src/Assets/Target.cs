@@ -17,6 +17,14 @@ public class Target : MonoBehaviour
         RightHand
     }
 
+    [Header("Settings")]
+    public HitType expectedHitType = HitType.Head;
+    public TMPro.TextMeshProUGUI scoreText;
+    public int scoreMultiplierStep = 3;
+    public Vector3 defaultPosition = new Vector3(0, 5, 10.8000002f);
+    public Quaternion defaultRotation = Quaternion.identity;
+    public GameObject particlesHit;
+
     [Header("Level 0: Z Rotation")]
     public float zRotationSpeed = 20f;
     public int zRotationSpeedStep = 1;
@@ -34,12 +42,6 @@ public class Target : MonoBehaviour
     public float xRotationSpeed = 15f;
     public float extraXRotationPercentage = 0.15f;
 
-    [Header("Settings")]
-    public HitType expectedHitType = HitType.Head;
-    public TMPro.TextMeshProUGUI scoreText;
-    public int scoreMultiplierStep = 3;
-    public Vector3 defaultPosition = new Vector3(0,5,10.8000002f);
-    public Quaternion defaultRotation = Quaternion.identity;
 
     [Header("Player")]
     public int startLives = 5;
@@ -78,9 +80,18 @@ public class Target : MonoBehaviour
         }
     }
 
-    public void OnHit(HitType hitType)
+    void ShowParticles(ContactPoint contactPoint) {
+        ParticleSystem ps = particlesHit.GetComponent<ParticleSystem>();
+        ps.Clear();
+        particlesHit.transform.position = contactPoint.point;
+        ps.Play();
+        AudioSource audio = particlesHit.GetComponent<AudioSource>();
+        audio.Play();        
+    }
+
+    public void OnHit(HitType hitType, ContactPoint contactPoint)
     {
-        
+        ShowParticles(contactPoint);
         if (hitType == expectedHitType)
         {
             hitCounter += 1;
