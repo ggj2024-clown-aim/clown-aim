@@ -54,6 +54,8 @@ public class Thrower : MonoBehaviour
         canThrow = false;
         pieAnimator.SetBool("Hidden", true);
 
+        GetComponent<AudioSource>().Play();
+
         GameObject cake = Instantiate(projectile, throwStartPoint.position, transform.rotation);    
         Vector3 force = aimDirection * throwStartPoint.forward * throwForce;
         Rigidbody cakeRb = cake.GetComponent<Rigidbody>();

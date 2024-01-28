@@ -24,6 +24,9 @@ public class Target : MonoBehaviour
     public Vector3 defaultPosition = new Vector3(0, 5, 10.8000002f);
     public Quaternion defaultRotation = Quaternion.identity;
     public GameObject particlesHit;
+    public AudioClip gaspAudio;
+    public AudioClip laughAudio;
+    public AudioClip booAudio;
 
     [Header("Level 0: Z Rotation")]
     public float zRotationSpeed = 20f;
@@ -51,12 +54,14 @@ public class Target : MonoBehaviour
     public bool isGameOver = false;
     public int score = 0;
     int hitCounter = 0;
+    AudioSource audioSource;
 
     
 
     void Start()
     {
         RestartGame();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -80,6 +85,22 @@ public class Target : MonoBehaviour
         }
     }
 
+    void PlayLaugh()
+    {
+        audioSource.pitch = 1;
+        audioSource.PlayOneShot(laughAudio);
+    }
+
+    void PlayGasp() {
+        audioSource.pitch = Random.Range(0.5f, 1.5f);
+        audioSource.PlayOneShot(gaspAudio);
+    }
+
+    void PlayBoo() {
+        audioSource.pitch = 1;
+        audioSource.PlayOneShot(booAudio);
+    }
+
     void ShowParticles(ContactPoint contactPoint) {
         ParticleSystem ps = particlesHit.GetComponent<ParticleSystem>();
         ps.Clear();
@@ -94,6 +115,7 @@ public class Target : MonoBehaviour
         ShowParticles(contactPoint);
         if (hitType == expectedHitType)
         {
+            PlayLaugh();
             hitCounter += 1;
             Debug.Log(hitCounter);
             score += (int) Mathf.Pow(2,(int)(hitCounter / scoreMultiplierStep));
@@ -101,6 +123,7 @@ public class Target : MonoBehaviour
             RestoreHealth();
         } else
         {
+            PlayGasp();
             lives -= 1;
             hitCounter = 0;
         }
@@ -120,6 +143,7 @@ public class Target : MonoBehaviour
     }
 
     void GameOver() {
+        PlayBoo();
         scoreText.text = "GAME OVER\nSCORE: " + score.ToString() + "\n Press R to restart.";
         isGameOver = true;
     }
