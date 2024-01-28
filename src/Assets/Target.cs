@@ -27,6 +27,7 @@ public class Target : MonoBehaviour
     public AudioClip gaspAudio;
     public AudioClip laughAudio;
     public AudioClip booAudio;
+    public Heart heart;
 
     [Header("Level 0: Z Rotation")]
     public float zRotationSpeed = 20f;
@@ -134,8 +135,9 @@ public class Target : MonoBehaviour
         }
         scoreText.text = "SCORE: " + score.ToString();
         scoreText.text += "\nLIVES: " + lives;
-        scoreText.text += "\nCOMBO: " + hitCounter;
         scoreText.text += "\nMULTIPLIER: " + Mathf.Pow(2, hitCounter / scoreMultiplierStep);
+
+        heart.SetHearts(hitCounter % restoreLifeComboLength);
         if (lives <= 0)
         {
             GameOver();

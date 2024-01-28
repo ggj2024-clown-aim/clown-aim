@@ -31,11 +31,10 @@ public class CakeCollider : MonoBehaviour
     }
 
     private void HighlightOn() {
-        // set color to red
-        GetComponent<MeshRenderer>().material.color = Color.red;
+
+        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
     }
     private void HighlightOff() {
-        // reset color
-        GetComponent<MeshRenderer>().material.color = Color.white;
+        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
     }
 }
