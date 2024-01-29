@@ -4,6 +4,7 @@ using UnityEngine;
 public class MusicPlayer : MonoBehaviour
 {
     AudioSource audioSource;
+    public AudioSource hit;
 
     void Start()
     {
@@ -18,10 +19,15 @@ public class MusicPlayer : MonoBehaviour
             if (audioSource.isPlaying)
             {
                 audioSource.Pause();
+                hit.pitch = 1f;
+                hit.Play();
+
             }
             else
             {
                 audioSource.Play();
+                hit.pitch = 1.20f;
+                hit.Play();
             }
         }
     }

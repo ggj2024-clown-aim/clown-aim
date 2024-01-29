@@ -68,6 +68,7 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         float zSpeed = zRotationSpeed * (1 + extraZRotationPercentage * score / zRotationSpeedStep);
         float ySpeed = 0f;
         float xSpeed = 0f;
@@ -130,8 +131,12 @@ public class Target : MonoBehaviour
             hitCounter = 0;
         }
         if (hitType == HitType.Wheel)
-        {
-            score -= 1;
+        { 
+            if(score > 0)
+            {
+                score -= 1;
+            }
+            
 
         }
         scoreText.text = "SCORE: " + score.ToString();
