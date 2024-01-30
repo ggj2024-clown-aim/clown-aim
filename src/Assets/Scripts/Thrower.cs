@@ -34,10 +34,10 @@ public class Thrower : MonoBehaviour
         if (target.isGameOver)
         {
             HideAimAssist();
-            transform.localScale = Vector3.zero;
+            transform.localScale = Vector3.one;
             return;
         }
-        if (transform.localScale == Vector3.zero)
+        if (transform.localScale == Vector3.one)
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
@@ -49,7 +49,7 @@ public class Thrower : MonoBehaviour
     /// <summary>
     /// Spawns and throws a new cake with a horizontal and vertical force.
     /// </summary>
-    private void Throw()
+    public void Throw()
     {
         canThrow = false;
         pieAnimator.SetBool("Hidden", true);
@@ -68,11 +68,15 @@ public class Thrower : MonoBehaviour
         
     }
 
-    IEnumerator ThrowCooldown()
+    public IEnumerator ThrowCooldown()
     {
         yield return new WaitForSeconds(1f);
         pieAnimator.SetBool("Hidden", false);
         canThrow = true;
+    }
+    public void TrowCoroutine()
+    {
+        StartCoroutine(ThrowCooldown());
     }
 
     void DragThrowPie()
@@ -93,12 +97,15 @@ public class Thrower : MonoBehaviour
             throwDirection.z = forwardThrowForce;
             throwDirection = throwDirection.normalized;
             aimDirection = Quaternion.FromToRotation(transform.forward, throwDirection);
+            DrawAimAssist();
         }
         if (!canThrow)
         {
             return;
         }
-        DrawAimAssist();
+        
+           
+        
         if (Input.GetMouseButtonUp(0))
         {
             Throw();
@@ -108,12 +115,12 @@ public class Thrower : MonoBehaviour
 
     }
 
-    void DrawAimAssist()
+    public void DrawAimAssist()
     {
         aimLine.SetPositionAndRotation(throwStartPoint.position, aimDirection);
     }
 
-    void HideAimAssist()
+    public void HideAimAssist()
     {
         aimLine.position = new Vector3(1000, 1000, 1000);
     }

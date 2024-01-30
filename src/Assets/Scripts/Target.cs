@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Target : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class Target : MonoBehaviour
     public AudioClip[] laughAudios;
     public AudioClip booAudio;
     public Heart heart;
+    public Animator animator;
+    public GameObject pie;
+    public Thrower Throw;
 
     [Header("Level 0: Z Rotation")]
     public float zRotationSpeed = 20f;
@@ -51,7 +55,7 @@ public class Target : MonoBehaviour
     public int startLives = 5;
     public int restoreLifeComboLength = 5;
 
-    int lives;
+    public int lives;
     public bool isGameOver = false;
     public int score = 0;
     int hitCounter = 0;
@@ -68,6 +72,7 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         
         float zSpeed = zRotationSpeed * (1 + extraZRotationPercentage * score / zRotationSpeedStep);
         float ySpeed = 0f;
@@ -150,11 +155,7 @@ public class Target : MonoBehaviour
         }
     }
 
-    void GameOver() {
-        PlayBoo();
-        scoreText.text = "GAME OVER\nSCORE: " + score.ToString() + "\n Press R to restart";
-        isGameOver = true;
-    }
+    
 
     public HitType CurrentTarget()
     {
@@ -179,13 +180,37 @@ public class Target : MonoBehaviour
             lives += 1;
         }
     }
-
+    void GameOver()
+    {
+        PlayBoo();
+        transform.localScale = Vector3.one;
+        scoreText.text = "GAME OVER\nSCORE: " + score.ToString() + "\n Press R to restart";
+        animator.SetBool("Defeat", true);
+        Throw.HideAimAssist();
+        isGameOver = true;
+        pie.SetActive(false);
+    }
     void RestartGame()
     {
         scoreText.text = "Clown ROULETTE\n\nUse MB1 to aim.\nHit the HIGHLIGHTED body part!";
         score = 0;
         lives = startLives;
+        animator.SetBool("Defeat", false);
         isGameOver = false;
         transform.SetPositionAndRotation(defaultPosition, defaultRotation);
+        
+        StartCoroutine(RespawnPie());
+    }
+
+    private IEnumerator RespawnPie()
+    {
+
+        yield return new WaitForSeconds(1f);
+        pie.SetActive(true);
+        Throw.DrawAimAssist();
+        Throw.TrowCoroutine();
+
+        
+
     }
 }
